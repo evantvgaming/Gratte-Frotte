@@ -30,8 +30,8 @@ body {
 
 .wallet {
   display: flex;
-  align-items: center;
   gap: 12px;
+  align-items: center;
   background: #8b5d3b;
   border-radius: 10px;
   padding: 10px;
@@ -67,7 +67,6 @@ body {
   margin: 12px 0;
 }
 
-.tabs button,
 button {
   border: 0;
   border-radius: 8px;
@@ -77,9 +76,9 @@ button {
 }
 
 .tabs button {
+  flex: 1;
   background: #245c91;
   color: white;
-  flex: 1;
 }
 
 .catalog-item {
@@ -127,14 +126,13 @@ button {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(
-      12deg,
-      rgba(255,255,255,0.04) 0px,
-      rgba(255,255,255,0.04) 3px,
-      transparent 3px,
-      transparent 38px
-    );
+  background: repeating-linear-gradient(
+    12deg,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.04) 3px,
+    transparent 3px,
+    transparent 38px
+  );
   pointer-events: none;
 }
 
@@ -162,7 +160,9 @@ button {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .scratch-mat {
@@ -210,6 +210,13 @@ button {
   display: block;
 }
 
+.table-deco {
+  position: absolute;
+  font-size: 60px;
+  z-index: 3;
+  pointer-events: none;
+}
+
 .work-screen {
   position: absolute;
   left: 50%;
@@ -226,6 +233,41 @@ button {
 .big-button {
   font-size: 22px;
   background: #51cf66;
+}
+
+.car-clean-box {
+  width: 420px;
+  height: 240px;
+  background: #1f2937;
+  border: 10px solid #111;
+  border-radius: 22px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.car-window {
+  position: absolute;
+  inset: 25px;
+  background: #7dd3fc;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.dirt {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: #5c3b1e;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.sponge {
+  position: absolute;
+  font-size: 42px;
+  pointer-events: none;
+  display: none;
 }
 
 .table-ticket {
@@ -413,13 +455,28 @@ button {
 }
 
 @keyframes pop {
-  0% { transform: scale(0.4); opacity: 0; }
-  60% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.rich-ending {
+  background: linear-gradient(135deg, #111, #ffd700) !important;
+  border-color: #ffd700 !important;
 }
 
 @media (max-width: 1100px) {
-  body { overflow: auto; }
+  body {
+    overflow: auto;
+  }
 
   .game {
     grid-template-columns: 1fr;
@@ -435,39 +492,4 @@ button {
     width: auto;
     margin-top: 15px;
   }
-}
-
-.car-clean-box {
-  width: 420px;
-  height: 240px;
-  background: #1f2937;
-  border: 10px solid #111;
-  border-radius: 22px;
-  margin: 20px auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.car-window {
-  position: absolute;
-  inset: 25px;
-  background: #7dd3fc;
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.dirt {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background: #5c3b1e;
-  border-radius: 50%;
-  opacity: 0.85;
-}
-
-.sponge {
-  position: absolute;
-  font-size: 42px;
-  pointer-events: none;
-  display: none;
 }
