@@ -27,9 +27,9 @@
     <div class="xp-text"><span id="xp">0</span> / 100 XP</div>
 
     <div class="tabs">
-      <button onclick="setTab('tickets')" id="ticketsTab">Tickets</button>
-      <button onclick="setTab('gadgets')" id="gadgetsTab">Gadgets</button>
-      <button onclick="setTab('work')" id="workTab">Boulot</button>
+      <button onclick="setTab('tickets')">Tickets</button>
+      <button onclick="setTab('gadgets')">Gadgets</button>
+      <button onclick="setTab('work')">Boulot</button>
     </div>
 
     <h2 id="catalogTitle">Catalogue</h2>
@@ -38,7 +38,6 @@
 
   <main class="main-area">
     <div class="wood-table" id="table">
-
       <div class="decor phone">☎️</div>
       <div class="decor fan" id="fan">🌀</div>
       <div class="scratch-mat" id="scratchMat"></div>
@@ -51,9 +50,8 @@
         <h1>💼 Métro, boulot, dodo</h1>
         <p>Tu commences avec 0€. Travaille pour acheter tes premiers tickets.</p>
         <button class="big-button" onclick="doWork()">Travailler</button>
-        <p>Gain actuel : <b><span id="workGainText">5</span> €</b></p>
+        <p>Gain actuel : <b><span id="workGainText">1</span> €</b></p>
       </div>
-
     </div>
   </main>
 
@@ -65,7 +63,7 @@
       <div>
         <h3>Chance</h3>
         <p>Niv. <span id="chanceLevel">1</span></p>
-        <p>Prix : <span id="chanceCost">500</span> €</p>
+        <p>Prix : <span id="chanceCost">700</span> €</p>
         <button onclick="upgradeChance()">Améliorer</button>
       </div>
     </div>
@@ -75,7 +73,7 @@
       <div>
         <h3>Chance de symbole</h3>
         <p>Niv. <span id="symbolLevel">1</span></p>
-        <p>Prix : <span id="symbolCost">750</span> €</p>
+        <p>Prix : <span id="symbolCost">1000</span> €</p>
         <button onclick="upgradeSymbol()">Améliorer</button>
       </div>
     </div>
@@ -85,7 +83,7 @@
       <div>
         <h3>Taille de grattage</h3>
         <p>Niv. <span id="scratchLevel">1</span></p>
-        <p>Prix : <span id="scratchCost">300</span> €</p>
+        <p>Prix : <span id="scratchCost">500</span> €</p>
         <button onclick="upgradeScratchSize()">Améliorer</button>
       </div>
     </div>
@@ -95,7 +93,7 @@
       <div>
         <h3>Autogratteur</h3>
         <p>Niv. <span id="autoLevel">0</span></p>
-        <p>Prix : <span id="autoCost">1000</span> €</p>
+        <p>Prix : <span id="autoCost">2000</span> €</p>
         <button onclick="buyAutoScratcher()">Acheter</button>
       </div>
     </div>
