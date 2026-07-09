@@ -6,39 +6,46 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#151923;color:white}
-.game{display:grid;grid-template-columns:280px 1fr 290px;min-height:100vh}
-.left,.right{background:#121824;padding:12px}
-.main{background:#242734;padding:20px}
-.money{font-size:32px;color:#ffd43b;font-weight:bold}
-button{border:0;border-radius:8px;padding:10px;margin:5px;font-weight:bold;cursor:pointer}
-.item{display:flex;gap:10px;background:#17263a;margin:10px 0;padding:10px;border-radius:10px;cursor:pointer;border:2px solid transparent}
+.game{display:grid;grid-template-columns:285px 1fr 300px;min-height:100vh}
+.left,.right{background:#111827;padding:12px}
+.main{background:#242734;padding:18px}
+.money{font-size:30px;color:#ffd43b;font-weight:900}
+button{border:0;border-radius:8px;padding:10px;margin:5px;font-weight:900;cursor:pointer}
+.tab{background:#245c91;color:white;width:45%}
+.item{display:flex;gap:10px;background:#182842;margin:10px 0;padding:10px;border-radius:10px;cursor:pointer;border:2px solid transparent}
 .item.active{border-color:#ffd43b;background:#244b80}
+.item.locked{opacity:.35}
 .icon{width:55px;height:55px;background:#0b3d70;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px}
-.table{background:#9a673c;border:10px solid #63391d;border-radius:18px;min-height:700px;padding:25px;position:relative}
-.phone{position:absolute;right:80px;top:20px;font-size:80px}
-.bin{position:absolute;right:40px;bottom:30px;font-size:85px;cursor:pointer;filter:drop-shadow(0 5px 4px #000)}
-.fan{position:absolute;left:40px;top:20px;font-size:70px}
-.ticket{width:520px;min-height:420px;margin:100px auto 10px;padding:20px;border-radius:12px;position:relative;background:#86d8ff;color:#111;border:3px dashed white;box-shadow:0 8px 18px #0008}
-.ticket.apple{background:linear-gradient(#7bd8ff,#b8ecff)}
-.ticket.double{background:linear-gradient(135deg,#073b75,#0c63bd);color:white}
-.ticket.gold{background:linear-gradient(135deg,#6b4300,#e0a21d);color:white}
-.title{font-size:42px;font-weight:900;text-align:center;color:#e71d36}
-.double .title,.gold .title{color:#ffd43b;text-shadow:3px 3px #000}
-.tree{font-size:140px;text-align:center;margin:10px}
-.grid{display:grid;grid-template-columns:repeat(3,100px);gap:18px;justify-content:center}
-.box{width:100px;height:82px;background:#ddd;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;position:relative;overflow:hidden;font-weight:bold}
+.table{background:#9a673c;border:10px solid #63391d;border-radius:18px;min-height:720px;padding:25px;position:relative;overflow:hidden}
+.phone{position:absolute;right:90px;top:20px;font-size:78px}
+.fan{position:absolute;left:35px;top:20px;font-size:70px}
+.fan.on{animation:spin .3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bin{position:absolute;right:35px;bottom:35px;font-size:88px;cursor:pointer}
+.robot{position:absolute;right:150px;bottom:42px;font-size:65px}
+.mat{position:absolute;left:50%;bottom:70px;transform:translateX(-50%);width:360px;height:90px;background:#536477;border:6px solid #334052;border-radius:12px;opacity:.9}
+.cardBack{position:absolute;width:85px;height:115px;background:#de7ac8;border:3px solid #f3b8e7;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:30px;cursor:pointer;box-shadow:0 6px 12px #0007}
+.cardBack:hover{transform:scale(1.06)}
+.ticket{width:520px;min-height:420px;margin:90px auto 5px;padding:20px;border-radius:12px;position:relative;color:#111;border:3px dashed white;box-shadow:0 8px 18px #0008}
+.blue{background:linear-gradient(135deg,#073b75,#0c63bd);color:white}
+.apple{background:linear-gradient(#82dcff,#bff1ff)}
+.gold{background:linear-gradient(135deg,#6b4300,#e0a21d);color:white}
+.red{background:linear-gradient(135deg,#641313,#dc3d3d);color:white}
+.purple{background:linear-gradient(135deg,#33135d,#8e44ad);color:white}
+.title{font-size:42px;font-weight:900;text-align:center;color:#ffd43b;text-shadow:3px 3px #000}
+.apple .title{color:#e71d36;text-shadow:none}
+.grid{display:grid;grid-template-columns:repeat(3,100px);gap:18px;justify-content:center;margin-top:20px}
+.box{width:100px;height:82px;background:#ddd;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:27px;position:relative;overflow:hidden;font-weight:900}
 .box canvas{position:absolute;inset:0}
-.info{position:absolute;right:-260px;top:30px;width:230px;background:#2b1d13e8;color:white;border-radius:12px;padding:15px}
-.prize{background:#ffd43b;color:#111;font-size:30px;font-weight:bold;padding:12px;border-radius:10px;width:220px;margin:15px auto;text-align:center}
-.upgrade,.debt,.history,.code{background:#17263a;padding:14px;border-radius:12px;margin:12px 0}
+.info{position:absolute;right:-270px;top:35px;width:245px;background:#2b1d13e8;color:white;border-radius:12px;padding:15px}
+.prize{background:#ffd43b;color:#111;font-size:28px;font-weight:900;padding:12px;border-radius:10px;width:220px;margin:15px auto;text-align:center}
+.panel{background:#17263a;padding:14px;border-radius:12px;margin:12px 0}
 .log{background:#0b111c;padding:9px;border-radius:8px;margin:8px 0}
 .anim{position:fixed;inset:0;display:none;align-items:center;justify-content:center;font-size:70px;font-weight:900;background:#0009;z-index:99}
-.cleanArea{width:520px;height:330px;margin:100px auto;background:#222;border:12px solid #111;border-radius:20px;position:relative;overflow:hidden}
-.window{position:absolute;inset:25px;background:#74c0fc;border-radius:18px;overflow:hidden}
-.dirt{position:absolute;width:70px;height:70px;background:#6b3f1e;border-radius:50%;opacity:.85}
-.sponge{position:absolute;font-size:45px;pointer-events:none;display:none}
+.workBox{width:520px;margin:130px auto;text-align:center;background:#3b2a1d;padding:25px;border-radius:15px}
+.workBtn{font-size:24px;background:#51cf66}
 input{width:100%;padding:10px;border-radius:8px;border:0}
-@media(max-width:1100px){.game{grid-template-columns:1fr}.ticket,.cleanArea{width:100%}.info{position:static;width:auto;margin-top:15px}}
+@media(max-width:1100px){.game{grid-template-columns:1fr}.ticket{width:100%}.info{position:static;width:auto;margin-top:15px}}
 </style>
 </head>
 <body>
@@ -48,61 +55,64 @@ input{width:100%;padding:10px;border-radius:8px;border:0}
 <div class="game">
 
 <aside class="left">
-  <div class="money">🪙 <span id="money">76</span> €</div>
-  <p>Dette : <b id="debt">0</b>€</p>
+  <div class="money">🪙 <span id="money">0</span> €</div>
   <p>Niveau <span id="level">1</span> — XP <span id="xp">0</span>/100</p>
+  <p>Dette : <b id="debt">0</b>€</p>
 
-  <button onclick="mode='tickets';render()">Tickets</button>
-  <button onclick="mode='clean';render()">Nettoyer</button>
+  <button class="tab" onclick="tab='tickets';render()">Tickets</button>
+  <button class="tab" onclick="tab='gadgets';renderList()">Gadgets</button>
+  <button class="tab" onclick="tab='work';render()">Boulot</button>
 
-  <h3>Catalogue du tabac</h3>
-  <div id="ticketList"></div>
+  <h3 id="listTitle">Catalogue</h3>
+  <div id="list"></div>
 </aside>
 
 <main class="main">
-  <div class="table">
-    <div class="fan">🌀</div>
+  <div class="table" id="table">
     <div class="phone">☎️</div>
+    <div class="fan" id="fan">🌀</div>
+    <div class="mat" id="mat" style="display:none"></div>
+    <div class="robot" id="robot" style="display:none">🤖</div>
+    <div class="bin" id="bin" onclick="throwTicket()" style="display:none">🗑️</div>
     <div id="center"></div>
-    <div class="bin" onclick="throwTicket()">🗑️</div>
   </div>
 </main>
 
 <aside class="right">
   <h2>Améliorations</h2>
 
-  <div class="upgrade">
+  <div class="panel">
     🍀 <b>Chance</b><br>
     Niveau : <span id="chanceLevel">1</span><br>
     Chance générale : <span id="chanceValue">25</span>%<br>
     Prix : <span id="chanceCost">500</span>€<br>
-    <button onclick="buyChance()">Améliorer</button>
+    <button onclick="upgrade('chance')">Améliorer</button>
   </div>
 
-  <div class="upgrade">
+  <div class="panel">
     ✨ <b>Chance de symbole</b><br>
     Niveau : <span id="symbolLevel">1</span><br>
     Bonus symbole : <span id="symbolChance">5</span>%<br>
     Prix : <span id="symbolCost">750</span>€<br>
-    <button onclick="buySymbolChance()">Améliorer</button>
+    <button onclick="upgrade('symbol')">Améliorer</button>
   </div>
 
-  <div class="upgrade">
-    🧽 <b>Nettoyage</b><br>
-    Gain : <span id="cleanGain">5</span>€<br>
-    Prix : <span id="cleanCost">100</span>€<br>
-    <button onclick="buyClean()">Améliorer</button>
+  <div class="panel">
+    💼 <b>Boulot</b><br>
+    Gain : <span id="workGain">5</span>€<br>
+    Prix : <span id="workCost">100</span>€<br>
+    <button onclick="upgrade('work')">Améliorer</button>
   </div>
 
-  <div class="debt">
-    <h3>Règle dette</h3>
-    <p>Si un ticket perdant est jeté à la poubelle, tu gagnes une dette égale au double du prix du ticket.</p>
-    <p>Si la dette n’est pas remboursée après 24h fictives, tu es bloqué 50h fictives.</p>
-    <button onclick="payDebt()">Rembourser dette</button>
-    <p id="timerText"></p>
+  <div class="panel">
+    <b>Dette</b>
+    <p>Si tu jettes un ticket perdant : dette = double du prix.</p>
+    <p>1h fictive = 3 minutes réelles.</p>
+    <p id="timer"></p>
+    <button onclick="payDebt()">Rembourser</button>
   </div>
 
-  <div class="code">
+  <div class="panel">
     <b>Code secret</b>
     <input id="codeInput" placeholder="Code">
     <button onclick="useCode()">Valider</button>
@@ -115,265 +125,337 @@ input{width:100%;padding:10px;border-radius:8px;border:0}
 </div>
 
 <script>
-let money=76,xp=0,level=1,debt=0;
-let chanceLevel=1,symbolLevel=1,cleanLevel=1,cleanGain=5;
-let selected=0,mode="tickets",infinite=false;
-let currentTicket=null,currentPrize=0,currentLost=false,currentResolved=false;
-let debtTimer=0,blockedTimer=0;
+let money=0,xp=0,level=1,debt=0;
+let chanceLevel=1,symbolLevel=1,workLevel=1,workGain=5;
+let tab="work",selected=0,infinite=false;
+let boughtTickets=[],currentTicket=null,currentPrize=0,currentLost=false,currentResolved=false;
+let debtHours=0,blockedHours=0;
+
+let gadgets={
+  bin:false,
+  robot:false,
+  fan:false,
+  mat:false
+};
 
 const tickets=[
-{name:"Mini ticket",icon:"🎟️",price:1,max:20,rule:"symbol",level:1,style:""},
-{name:"Doublette ⭐",icon:"2x",price:10,max:2000,rule:"double",level:1,style:"double"},
-{name:"Pommier",icon:"🌳",price:2000,max:6500,rule:"apple",level:2,style:"apple"},
-{name:"Trésor",icon:"💰",price:20,max:5000,rule:"chest",level:2,style:"gold"},
-{name:"Numéro Fétiche",icon:"7️⃣",price:30,max:8000,rule:"number",level:3,style:"double"},
-{name:"Coffre d’Or",icon:"🔐",price:50,max:15000,rule:"symbol",level:4,style:"gold"}
+{name:"Mini ticket",icon:"🎟️",price:5,max:50,rule:"symbol",level:1,style:"blue"},
+{name:"Doublette ⭐",icon:"2x",price:10,max:2000,rule:"double",level:2,style:"blue"},
+{name:"Pommier",icon:"🌳",price:2000,max:6500,rule:"apple",level:4,style:"apple"},
+{name:"Argent facile",icon:"🌀",price:10000,max:100000,rule:"symbol",level:6,style:"purple"},
+{name:"Chat chanceux",icon:"🐱",price:300000,max:5000000,rule:"number",level:8,style:"gold"},
+{name:"Dernière chance",icon:"💀",price:50000000,max:1000000000,rule:"jackpot",level:12,style:"red"}
+];
+
+const gadgetList=[
+{name:"Poubelle",key:"bin",icon:"🗑️",price:50,desc:"Permet de jeter les tickets perdants, mais dette x2."},
+{name:"Robot",key:"robot",icon:"🤖",price:250,desc:"Décoration vivante du tabac. Il juge tes pertes."},
+{name:"Ventilo",key:"fan",icon:"🌀",price:150,desc:"Ajoute un ventilo animé sur la table."},
+{name:"Tapis de grattage",key:"mat",icon:"▦",price:500,desc:"Ajoute un tapis pour poser les tickets."}
 ];
 
 function update(){
-money=Math.floor(money);
-document.getElementById("money").textContent=infinite?"∞":money;
-document.getElementById("debt").textContent=debt;
-document.getElementById("xp").textContent=xp;
-document.getElementById("level").textContent=level;
-document.getElementById("chanceLevel").textContent=chanceLevel;
-document.getElementById("chanceValue").textContent=20+chanceLevel*5;
-document.getElementById("chanceCost").textContent=chanceLevel*500;
-document.getElementById("symbolLevel").textContent=symbolLevel;
-document.getElementById("symbolChance").textContent=symbolLevel*5;
-document.getElementById("symbolCost").textContent=symbolLevel*750;
-document.getElementById("cleanGain").textContent=cleanGain;
-document.getElementById("cleanCost").textContent=cleanLevel*100;
-document.getElementById("timerText").textContent=blockedTimer>0?"Blocage : "+blockedTimer+"h restantes":debt>0?"Dette à payer avant : "+debtTimer+"h":"Aucune dette.";
-renderList();
+  money=Math.floor(money);
+  document.getElementById("money").textContent=infinite?"∞":format(money);
+  document.getElementById("xp").textContent=xp;
+  document.getElementById("level").textContent=level;
+  document.getElementById("debt").textContent=format(debt);
+  document.getElementById("chanceLevel").textContent=chanceLevel;
+  document.getElementById("chanceValue").textContent=20+chanceLevel*5;
+  document.getElementById("chanceCost").textContent=format(chanceLevel*500);
+  document.getElementById("symbolLevel").textContent=symbolLevel;
+  document.getElementById("symbolChance").textContent=symbolLevel*5;
+  document.getElementById("symbolCost").textContent=format(symbolLevel*750);
+  document.getElementById("workGain").textContent=format(workGain);
+  document.getElementById("workCost").textContent=format(workLevel*100);
+  document.getElementById("timer").textContent=blockedHours>0?"Blocage : "+blockedHours+"h restantes":debt>0?"Dette à payer avant : "+debtHours+"h":"Aucune dette.";
+  document.getElementById("bin").style.display=gadgets.bin?"block":"none";
+  document.getElementById("robot").style.display=gadgets.robot?"block":"none";
+  document.getElementById("mat").style.display=gadgets.mat?"block":"none";
+  document.getElementById("fan").style.display=gadgets.fan?"block":"none";
+  document.getElementById("fan").className=gadgets.fan?"fan on":"fan";
+}
+
+function format(n){
+  if(n>=1000000)return (n/1000000).toFixed(2)+"M";
+  if(n>=1000)return (n/1000).toFixed(1)+"K";
+  return n;
 }
 
 function log(t){
-let d=document.createElement("div");
-d.className="log";
-d.innerHTML=t;
-history.prepend(d);
+  let d=document.createElement("div");
+  d.className="log";
+  d.innerHTML=t;
+  history.prepend(d);
 }
 
 function pop(t,c){
-anim.textContent=t;
-anim.style.color=c;
-anim.style.display="flex";
-setTimeout(()=>anim.style.display="none",1200);
+  anim.textContent=t;
+  anim.style.color=c;
+  anim.style.display="flex";
+  setTimeout(()=>anim.style.display="none",1200);
 }
 
 function gainXp(n){
-xp+=n;
-if(xp>=100){xp-=100;level++;pop("NIVEAU +1 ⭐","#ffd43b");}
+  xp+=n;
+  while(xp>=100){
+    xp-=100;
+    level++;
+    pop("NIVEAU +1 ⭐","#ffd43b");
+    log("⭐ Niveau supérieur : "+level);
+  }
 }
 
 function renderList(){
-ticketList.innerHTML="";
-tickets.forEach((t,i)=>{
-let locked=level<t.level;
-let div=document.createElement("div");
-div.className="item "+(selected===i?"active ":"");
-if(locked)div.style.opacity=.4;
-div.onclick=()=>{if(!locked){selected=i;mode="tickets";render();}};
-div.innerHTML=`<div class="icon">${t.icon}</div><div><b>${locked?"Verrouillé":t.name}</b><br>${locked?"Niveau "+t.level:t.price+"€"}<br>Max : ${locked?"?":t.max+"€"}</div>`;
-ticketList.appendChild(div);
-});
+  list.innerHTML="";
+  listTitle.textContent=tab==="gadgets"?"Gadgets":"Catalogue";
+
+  if(tab==="gadgets"){
+    gadgetList.forEach(g=>{
+      let owned=gadgets[g.key];
+      let div=document.createElement("div");
+      div.className="item";
+      div.onclick=()=>buyGadget(g);
+      div.innerHTML=`<div class="icon">${g.icon}</div><div><b>${g.name}</b><br>${owned?"Acheté":format(g.price)+"€"}<br>${g.desc}</div>`;
+      list.appendChild(div);
+    });
+    return;
+  }
+
+  tickets.forEach((t,i)=>{
+    let locked=level<t.level;
+    let div=document.createElement("div");
+    div.className="item "+(selected===i?"active ":"")+(locked?"locked":"");
+    div.onclick=()=>{if(!locked){selected=i;buyAndPlace(t);}};
+    div.innerHTML=`<div class="icon">${t.icon}</div><div><b>${locked?"Verrouillé":t.name}</b><br>${locked?"Niveau "+t.level:t.price+"€"}<br>Max : ${locked?"?":format(t.max)+"€"}</div>`;
+    list.appendChild(div);
+  });
 }
 
 function render(){
-if(blockedTimer>0){
-center.innerHTML="<h1>⛔ Bloqué</h1><p>Tu dois attendre la fin du blocage pour rejouer.</p>";
-update();return;
+  if(blockedHours>0){
+    center.innerHTML="<div class='workBox'><h1>⛔ Bloqué</h1><p>Dette non payée. Attends la fin du blocage.</p></div>";
+    update();renderList();return;
+  }
+  if(tab==="work")renderWork();
+  else if(tab==="tickets")renderTableTickets();
+  update();renderList();
 }
-if(mode==="clean")renderClean();else renderTicket();
-update();
+
+function renderWork(){
+  center.innerHTML=`
+    <div class="workBox">
+      <h1>💼 Boulot</h1>
+      <p>Tu commences à 0€. Clique pour bosser et débloquer les tickets.</p>
+      <button class="workBtn" onclick="work()">Travailler +${format(workGain)}€</button>
+    </div>`;
 }
 
-function renderTicket(){
-let t=tickets[selected];
-if(!infinite && money<t.price){
-center.innerHTML="<h2>Pas assez d’argent.</h2><p>Nettoie des vitres pour acheter ce ticket.</p>";
-return;
+function work(){
+  money+=workGain;
+  gainXp(8);
+  pop("+"+format(workGain)+"€","#51cf66");
+  log("💼 Boulot : +"+format(workGain)+"€");
+  update();renderList();
 }
-if(!infinite)money-=t.price;
 
-currentTicket=t;
-currentResolved=false;
-currentLost=false;
+function buyAndPlace(t){
+  if(blockedHours>0)return;
+  if(!infinite&&money<t.price){pop("PAS ASSEZ","red");return;}
+  if(!infinite)money-=t.price;
 
-let chance=20+chanceLevel*5;
-if(t.rule==="symbol"||t.rule==="apple")chance+=symbolLevel*5;
-let win=Math.random()*100<chance;
-currentPrize=win?Math.floor(Math.random()*t.max)+1:0;
-currentLost=!win;
+  boughtTickets.push({ticket:t,x:120+Math.random()*420,y:170+Math.random()*250});
+  tab="tickets";
+  renderTableTickets();
+  log("🎟️ Ticket acheté et posé : "+t.name+" (-"+format(t.price)+"€)");
+  update();
+}
 
-center.innerHTML=`
-<div class="ticket ${t.style}">
-  <div class="title">${t.name}</div>
-  ${t.rule==="apple"?"<div class='tree'>🌳</div>":""}
-  <p>${ruleText(t.rule)}</p>
-  <div class="grid" id="grid"></div>
-  <div class="info">
-    <h2>${t.name}</h2>
+function renderTableTickets(){
+  center.innerHTML="";
+  boughtTickets.forEach((bt,index)=>{
+    let c=document.createElement("div");
+    c.className="cardBack";
+    c.style.left=bt.x+"px";
+    c.style.top=bt.y+"px";
+    c.innerHTML="🎟️";
+    c.onclick=()=>playPlacedTicket(index);
+    center.appendChild(c);
+  });
+
+  if(boughtTickets.length===0){
+    center.innerHTML="<div class='workBox'><h2>Aucun ticket posé</h2><p>Achète un ticket dans le catalogue à gauche.</p></div>";
+  }
+}
+
+function playPlacedTicket(index){
+  let bt=boughtTickets.splice(index,1)[0];
+  playTicket(bt.ticket);
+}
+
+function playTicket(t){
+  currentTicket=t;
+  currentResolved=false;
+  currentLost=false;
+
+  let chance=20+chanceLevel*5;
+  if(["symbol","apple","jackpot"].includes(t.rule))chance+=symbolLevel*5;
+
+  let win=Math.random()*100<chance;
+  currentPrize=win?Math.floor(Math.random()*t.max)+1:0;
+  currentLost=!win;
+
+  center.innerHTML=`
+  <div class="ticket ${t.style}">
+    <div class="title">${t.name}</div>
     <p>${ruleText(t.rule)}</p>
-    <h3>Chance de symbole</h3>
-    <p>🍀 ${chance}%</p>
-    <p>Gain max : ${t.max}€</p>
-    <p>Prix : ${t.price}€</p>
+    ${t.rule==="apple"?"<div style='font-size:120px;text-align:center'>🌳</div>":""}
+    <div class="grid" id="grid"></div>
+    <div class="info">
+      <h2>${t.name}</h2>
+      <p>${ruleText(t.rule)}</p>
+      <h3>Chance de symbole</h3>
+      <p>🪶 0,5% : -845K</p>
+      <p>🗝️ 20% : 0€</p>
+      <p>🌸 20% : 169K</p>
+      <p>🐾 35% : 338K</p>
+      <p>🎫 25% : 8.45M</p>
+      <p>✨ 0,1% : ? Jackpot</p>
+      <hr>
+      <p>Chance actuelle : ${chance}%</p>
+    </div>
+    <div class="prize">${currentPrize>0?format(currentPrize)+"€":"?"}</div>
   </div>
-  <div class="prize">${win?currentPrize+"€":"?"}</div>
-</div>
-<p>Gratte les zones grises. Si c’est perdant, tu peux le jeter à la poubelle, mais dette x2.</p>
-`;
+  <p>Gratte les zones. Le symbole ✨ / ? représente le jackpot.</p>`;
 
-let values=valuesFor(t.rule,win,currentPrize);
-values.forEach(v=>{
-let b=document.createElement("div");
-b.className="box";
-b.innerHTML="<span>"+v+"</span>";
-let c=document.createElement("canvas");
-c.width=100;c.height=82;
-b.appendChild(c);
-grid.appendChild(b);
-scratch(c);
-});
-log("🎟️ Ticket acheté : "+t.name+" (-"+t.price+"€)");
+  valuesFor(t.rule,win,currentPrize).forEach(v=>{
+    let b=document.createElement("div");
+    b.className="box";
+    b.innerHTML="<span>"+v+"</span>";
+    let c=document.createElement("canvas");
+    c.width=100;c.height=82;
+    b.appendChild(c);
+    grid.appendChild(b);
+    scratch(c);
+  });
+  update();
 }
 
 function ruleText(r){
-if(r==="symbol")return"Trouvez 3 symboles identiques.";
-if(r==="double")return"Trouvez 2 sommes identiques.";
-if(r==="number")return"Trouvez le numéro gagnant.";
-if(r==="chest")return"Trouvez la clé.";
-if(r==="apple")return"Gagnez selon le fruit trouvé, mais gare aux vers.";
+  if(r==="symbol")return"Trouvez 3 symboles identiques.";
+  if(r==="double")return"Trouvez 2 sommes identiques.";
+  if(r==="number")return"Trouvez le numéro gagnant.";
+  if(r==="apple")return"Gagnez selon le fruit trouvé, mais gare aux vers.";
+  if(r==="jackpot")return"Trouvez le symbole ? pour le jackpot.";
 }
 
 function valuesFor(r,win,p){
-if(r==="apple"){
-if(win)return["🍏","🍎","🍏","🍎","🍋","⭐"];
-return["🪱","🍃","🐝","🦟","🍏","🍎"];
-}
-if(r==="symbol")return win?["👑","👑","👑","🍀","⭐","💎"]:["🍀","⭐","💎","🔔","👑","🍒"];
-if(r==="double")return win?[p+"€",p+"€","10€","20€","50€","100€"]:["5€","10€","20€","50€","100€","200€"];
-if(r==="number"){let n=Math.floor(Math.random()*9)+1;return win?["N° "+n,n,"2","4","6","8"]:["N° "+n,"1","3","5","7","9"];}
-if(r==="chest")return win?["🔑","💰","💰","❌","❌","❌"]:["❌","💰","❌","💰","❌","💰"];
+  if(r==="apple")return win?["🍏","🍎","🍏","🍎","🍋","✨"]:["🪱","🍃","🐝","🦟","🍏","🍎"];
+  if(r==="symbol")return win?["👑","👑","👑","🍀","⭐","✨"]:["🍀","⭐","💎","🔔","👑","🍒"];
+  if(r==="double")return win?[p+"€",p+"€","10€","20€","50€","100€"]:["5€","10€","20€","50€","100€","200€"];
+  if(r==="number"){let n=Math.floor(Math.random()*9)+1;return win?["N° "+n,n,"2","4","6","8"]:["N° "+n,"1","3","5","7","9"];}
+  if(r==="jackpot")return win?["?","✨","💰","👑","🎫","⭐"]:["🪶","🗝️","🌸","🐾","🎫","🍒"];
 }
 
 function scratch(c){
-let ctx=c.getContext("2d");
-ctx.fillStyle="#bfc3c7";ctx.fillRect(0,0,100,82);
-ctx.fillStyle="#777";ctx.font="28px Arial";ctx.fillText("?",43,50);
-ctx.globalCompositeOperation="destination-out";
-function doScratch(x,y){
-ctx.beginPath();ctx.arc(x,y,17,0,Math.PI*2);ctx.fill();checkScratch();
-}
-c.addEventListener("mousemove",e=>{if(e.buttons!==1)return;let r=c.getBoundingClientRect();doScratch(e.clientX-r.left,e.clientY-r.top);});
-c.addEventListener("touchmove",e=>{e.preventDefault();let r=c.getBoundingClientRect();let t=e.touches[0];doScratch(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+  let ctx=c.getContext("2d");
+  ctx.fillStyle="#bfc3c7";ctx.fillRect(0,0,100,82);
+  ctx.fillStyle="#777";ctx.font="28px Arial";ctx.fillText("?",43,50);
+  ctx.globalCompositeOperation="destination-out";
+  function s(x,y){ctx.beginPath();ctx.arc(x,y,17,0,Math.PI*2);ctx.fill();checkScratch();}
+  c.addEventListener("mousemove",e=>{if(e.buttons!==1)return;let r=c.getBoundingClientRect();s(e.clientX-r.left,e.clientY-r.top);});
+  c.addEventListener("touchmove",e=>{e.preventDefault();let r=c.getBoundingClientRect();let t=e.touches[0];s(t.clientX-r.left,t.clientY-r.top);},{passive:false});
 }
 
 function checkScratch(){
-if(currentResolved)return;
-let all=[...document.querySelectorAll(".box canvas")];
-let done=0;
-all.forEach(c=>{
-let ctx=c.getContext("2d"),data=ctx.getImageData(0,0,100,82).data,clear=0;
-for(let i=3;i<data.length;i+=4)if(data[i]===0)clear++;
-if(clear/(100*82)*100>55){c.style.display="none";done++;}
-});
-if(done===all.length){
-currentResolved=true;
-if(currentPrize>0){
-money+=currentPrize;gainXp(20);pop("GAGNÉ +"+currentPrize+"€","lime");log("✅ Gagné +"+currentPrize+"€");
-}else{
-gainXp(8);pop("PERDU","red");log("❌ Ticket perdant. Tu peux le jeter, mais dette x2.");
-}
-update();
-}
+  if(currentResolved)return;
+  let all=[...document.querySelectorAll(".box canvas")];
+  let done=0;
+  all.forEach(c=>{
+    let ctx=c.getContext("2d"),data=ctx.getImageData(0,0,100,82).data,clear=0;
+    for(let i=3;i<data.length;i+=4)if(data[i]===0)clear++;
+    if(clear/(100*82)*100>55){c.style.display="none";done++;}
+  });
+  if(done===all.length){
+    currentResolved=true;
+    if(currentPrize>0){
+      money+=currentPrize;
+      gainXp(20);
+      pop("GAGNÉ +"+format(currentPrize)+"€","lime");
+      log("✅ "+currentTicket.name+" : +"+format(currentPrize)+"€");
+    }else{
+      gainXp(8);
+      pop("PERDU","red");
+      log("❌ Ticket perdant. Tu peux le jeter seulement si tu as la poubelle.");
+    }
+    update();renderList();
+  }
 }
 
 function throwTicket(){
-if(!currentTicket||!currentResolved){pop("RIEN À JETER","white");return;}
-if(!currentLost){pop("PAS BESOIN","lime");return;}
-let d=currentTicket.price*2;
-debt+=d;
-debtTimer=24;
-currentTicket=null;
-currentLost=false;
-pop("DETTE +"+d+"€","red");
-log("🗑️ Ticket jeté : dette +"+d+"€");
-update();
+  if(!gadgets.bin){pop("ACHÈTE LA POUBELLE","red");return;}
+  if(!currentTicket||!currentResolved||!currentLost){pop("RIEN À JETER","white");return;}
+  let d=currentTicket.price*2;
+  debt+=d;
+  debtHours=24;
+  currentTicket=null;
+  currentLost=false;
+  pop("DETTE +"+format(d)+"€","red");
+  log("🗑️ Ticket jeté : dette +"+format(d)+"€");
+  update();
 }
 
 function payDebt(){
-if(debt<=0){log("Aucune dette.");return;}
-if(!infinite&&money<debt){log("❌ Pas assez pour rembourser.");return;}
-if(!infinite)money-=debt;
-log("✅ Dette remboursée : "+debt+"€");
-debt=0;debtTimer=0;
-update();
+  if(debt<=0){log("Aucune dette.");return;}
+  if(!infinite&&money<debt){pop("PAS ASSEZ","red");return;}
+  if(!infinite)money-=debt;
+  log("✅ Dette remboursée : "+format(debt)+"€");
+  debt=0;debtHours=0;
+  update();
 }
 
 setInterval(()=>{
-if(debt>0&&debtTimer>0){debtTimer--;}
-if(debt>0&&debtTimer===0&&blockedTimer===0){
-blockedTimer=50;
-pop("BLOQUÉ 50H","red");
-log("⛔ Dette non payée : blocage 50h fictives.");
-}
-if(blockedTimer>0){
-blockedTimer--;
-if(blockedTimer===0)log("✅ Blocage terminé.");
-}
-update();
-},3000);
+  if(debt>0&&debtHours>0)debtHours--;
+  if(debt>0&&debtHours===0&&blockedHours===0){
+    blockedHours=50;
+    pop("BLOQUÉ 50H","red");
+    log("⛔ Dette non payée : blocage 50h.");
+  }
+  if(blockedHours>0){
+    blockedHours--;
+    if(blockedHours===0)log("✅ Blocage terminé.");
+  }
+  update();
+},180000);
 
-function renderClean(){
-center.innerHTML=`
-<h2>Nettoyage de vitre</h2>
-<p>Frotte les taches avec l’éponge.</p>
-<div class="cleanArea" id="cleanArea"><div class="window" id="win"></div><div class="sponge" id="sp">🧽</div></div>`;
-for(let i=0;i<18;i++){
-let d=document.createElement("div");
-d.className="dirt";
-d.style.left=Math.random()*420+"px";
-d.style.top=Math.random()*220+"px";
-win.appendChild(d);
-}
-cleanArea.addEventListener("mousemove",e=>{if(e.buttons!==1)return;cleanAt(e);});
-cleanArea.addEventListener("touchmove",e=>{e.preventDefault();cleanAt(e.touches[0]);},{passive:false});
+function upgrade(type){
+  let cost=type==="chance"?chanceLevel*500:type==="symbol"?symbolLevel*750:workLevel*100;
+  if(!infinite&&money<cost){pop("PAS ASSEZ","red");return;}
+  if(!infinite)money-=cost;
+  if(type==="chance")chanceLevel++;
+  if(type==="symbol")symbolLevel++;
+  if(type==="work"){workLevel++;workGain+=5;}
+  pop("AMÉLIORÉ","#ffd43b");
+  update();
 }
 
-function cleanAt(e){
-let r=cleanArea.getBoundingClientRect();
-let x=e.clientX-r.left,y=e.clientY-r.top;
-sp.style.display="block";sp.style.left=x+"px";sp.style.top=y+"px";
-document.querySelectorAll(".dirt").forEach(d=>{
-let dr=d.getBoundingClientRect();
-let dx=dr.left-r.left+35-x,dy=dr.top-r.top+35-y;
-if(Math.sqrt(dx*dx+dy*dy)<55)d.remove();
-});
-if(document.querySelectorAll(".dirt").length===0){
-money+=cleanGain;gainXp(5);pop("VITRE PROPRE +"+cleanGain+"€","#51cf66");log("🧽 Nettoyage +"+cleanGain+"€");setTimeout(renderClean,700);update();
-}
-}
-
-function buyChance(){buy("chance")}
-function buySymbolChance(){buy("symbol")}
-function buyClean(){buy("clean")}
-function buy(type){
-let cost=type==="chance"?chanceLevel*500:type==="symbol"?symbolLevel*750:cleanLevel*100;
-if(!infinite&&money<cost){log("❌ Pas assez d’argent.");return;}
-if(!infinite)money-=cost;
-if(type==="chance")chanceLevel++;
-if(type==="symbol")symbolLevel++;
-if(type==="clean"){cleanLevel++;cleanGain+=5;}
-pop("AMÉLIORÉ","#ffd43b");update();
+function buyGadget(g){
+  if(gadgets[g.key]){pop("DÉJÀ ACHETÉ","white");return;}
+  if(!infinite&&money<g.price){pop("PAS ASSEZ","red");return;}
+  if(!infinite)money-=g.price;
+  gadgets[g.key]=true;
+  pop(g.name+" acheté","#51cf66");
+  log("🛒 Gadget acheté : "+g.name);
+  update();renderList();
 }
 
 function useCode(){
-if(codeInput.value==="3000"){infinite=true;pop("ARGENT INFINI 💸","#ffd43b");log("💸 Code 3000 activé.");}
-else pop("CODE FAUX","red");
-update();
+  if(codeInput.value==="3000"){
+    infinite=true;
+    pop("ARGENT INFINI 💸","#ffd43b");
+    log("💸 Code 3000 activé.");
+  }else pop("CODE FAUX","red");
+  update();
 }
 
 render();
