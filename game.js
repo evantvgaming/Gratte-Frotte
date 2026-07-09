@@ -57,13 +57,13 @@ const tickets = [
     level: 1,
     style: "ticket-orange",
     rule: "Trouve 3 symboles identiques.",
-    symbols: [
-      { icon: "🍒", value: 0, chance: 58 },
-      { icon: "🍋", value: 1, chance: 24 },
-      { icon: "🍀", value: 3, chance: 9 },
-      { icon: "💎", value: 8, chance: 1.5 },
-      { icon: "?", value: 20, chance: 0.03 }
-    ]
+  symbols: [
+  { icon: "🍒", value: 0, chance: 45 },
+  { icon: "🍋", value: 1, chance: 30 },
+  { icon: "🍀", value: 3, chance: 15 },
+  { icon: "💎", value: 8, chance: 5 },
+  { icon: "?", value: 20, chance: 0.1 }
+]
   },
   {
     name: "Double Galère",
@@ -74,13 +74,13 @@ const tickets = [
     level: 3,
     style: "ticket-blue",
     rule: "Trouve deux gains identiques.",
-    symbols: [
-      { icon: "0€", value: 0, chance: 63 },
-      { icon: "2€", value: 2, chance: 20 },
-      { icon: "5€", value: 5, chance: 8 },
-      { icon: "20€", value: 20, chance: 1.5 },
-      { icon: "?", value: 120, chance: 0.02 }
-    ]
+  symbols: [
+  { icon:"0€", value:0, chance:46 },
+  { icon:"2€", value:2, chance:28 },
+  { icon:"5€", value:6, chance:16 },
+  { icon:"20€", value:30, chance:8 },
+  { icon:"?", value:120, chance:2 }
+]
   },
   {
     name: "Pommier",
@@ -91,13 +91,13 @@ const tickets = [
     level: 5,
     style: "ticket-apple",
     rule: "Les fruits gagnent. Les vers donnent 0€.",
-    symbols: [
-      { icon: "🪱", value: 0, chance: 62 },
-      { icon: "🍏", value: 5, chance: 18 },
-      { icon: "🍎", value: 15, chance: 7 },
-      { icon: "🍐", value: 60, chance: 1.2 },
-      { icon: "?", value: 600, chance: 0.015 }
-    ]
+   symbols: [
+  { icon:"🪱", value:0, chance:48 },
+  { icon:"🍏", value:10, chance:22 },
+  { icon:"🍎", value:30, chance:16 },
+  { icon:"🍐", value:100, chance:12 },
+  { icon:"?", value:600, chance:2 }
+]
   },
   {
     name: "Coffre Royal",
@@ -108,13 +108,13 @@ const tickets = [
     level: 8,
     style: "ticket-gold",
     rule: "La clé ouvre le gain. Le coffre vide ne donne rien.",
-    symbols: [
-      { icon: "📦", value: 0, chance: 68 },
-      { icon: "🗝️", value: 30, chance: 13 },
-      { icon: "💰", value: 150, chance: 4 },
-      { icon: "👑", value: 700, chance: 0.8 },
-      { icon: "?", value: 4000, chance: 0.01 }
-    ]
+ symbols: [
+  { icon:"📦", value:0, chance:55 },
+  { icon:"🗝️", value:80, chance:20 },
+  { icon:"💰", value:250, chance:15 },
+  { icon:"👑", value:900, chance:8 },
+  { icon:"?", value:4000, chance:2 }
+]
   },
   {
     name: "Dernière Chance",
@@ -125,13 +125,13 @@ const tickets = [
     level: 12,
     style: "ticket-red",
     rule: "Le symbole ? est le jackpot. Le reste est une gifle fiscale.",
-    symbols: [
-      { icon: "💀", value: 0, chance: 72 },
-      { icon: "🩸", value: -500, chance: 10 },
-      { icon: "🔥", value: 500, chance: 3 },
-      { icon: "💎", value: 3000, chance: 0.5 },
-      { icon: "?", value: 100000, chance: 0.005 }
-    ]
+  symbols: [
+  { icon:"💀", value:0, chance:62 },
+  { icon:"🩸", value:-500, chance:10 },
+  { icon:"🔥", value:1200, chance:18 },
+  { icon:"💎", value:5000, chance:8 },
+  { icon:"?", value:100000, chance:2 }
+]            
   },
   {
     name: "Table Finale",
