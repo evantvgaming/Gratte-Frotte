@@ -689,7 +689,11 @@ function generateTicketValues(ticket) {
     values.push(weightedSymbol(ticket.symbols));
   }
 
-  const forcedChance = 0.6 + chanceLevel * 0.25 + symbolLevel * 0.08 + hype * 0.01;
+ const forcedChance =
+    8 +
+    chanceLevel * 0.8 +
+    symbolLevel * 0.35 +
+    hype * 0.05;
 
   if (Math.random() * 100 < forcedChance) {
     const good = ticket.symbols.filter(s => s.value > 0 && s.icon !== "?");
