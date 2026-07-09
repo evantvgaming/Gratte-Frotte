@@ -1,337 +1,293 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Scratch Life</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      color: #222;
-      text-align: center;
-    }
-
-    header {
-      background: #202020;
-      color: white;
-      padding: 15px;
-    }
-
-    button {
-      padding: 10px 15px;
-      margin: 6px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .nav button {
-      background: #444;
-      color: white;
-    }
-
-    .card {
-      background: white;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ccc;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .ticket {
-      background: #ffe08a;
-      margin: 12px;
-      padding: 15px;
-      border-radius: 10px;
-    }
-
-    #carWindow {
-      width: 320px;
-      height: 170px;
-      margin: 20px auto;
-      background: #74c0fc;
-      border: 8px solid #333;
-      border-radius: 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #dirt {
-      position: absolute;
-      inset: 0;
-      background: repeating-radial-gradient(circle, #7a4b20 0 8px, transparent 9px 22px);
-      opacity: 1;
-    }
-
-    .primary {
-      background: #4dabf7;
-      color: white;
-    }
-
-    .green {
-      background: #51cf66;
-    }
-
-    .yellow {
-      background: #ffd43b;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Scratch Life</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#eef1f5;text-align:center;color:#222}
+header{background:#20242c;color:white;padding:15px;position:sticky;top:0;z-index:10}
+button{padding:10px 15px;margin:6px;border:0;border-radius:8px;font-weight:bold;cursor:pointer}
+.nav button{background:#3d4655;color:white}
+.card{background:white;max-width:760px;margin:20px auto;padding:20px;border-radius:15px;box-shadow:0 3px 12px #bbb}
+.hidden{display:none}
+#carBox{width:360px;height:210px;margin:20px auto;background:#222;border-radius:24px;padding:18px}
+#window{width:100%;height:100%;background:#82cfff;border-radius:18px;position:relative;overflow:hidden}
+.dirt{position:absolute;width:55px;height:55px;background:#79502c;border-radius:50%;opacity:.8}
+.sponge{font-size:42px}
+.ticket{width:330px;margin:15px auto;padding:15px;border-radius:18px;color:white;background:linear-gradient(135deg,#273c75,#e84118)}
+.ticket h3{margin:5px}
+.scratchArea{position:relative;width:280px;height:120px;margin:15px auto;background:#fff;color:#111;border-radius:10px;overflow:hidden}
+.result{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:bold}
+canvas{position:absolute;inset:0}
+.green{background:#51cf66}.blue{background:#339af0;color:white}.gold{background:#ffd43b}.red{background:#ff6b6b}
+</style>
 </head>
 <body>
 
 <header>
-  <h1 id="title">Scratch Life</h1>
-  <p>
-    <span id="moneyText">Money</span>: <b id="money">0</b>€
-    |
-    <span id="luckText">Luck</span>: <b id="luck">0</b>%
-  </p>
-
-  <div class="nav">
-    <button onclick="showPage('clean')" id="cleanTab">Cleaning</button>
-    <button onclick="showPage('shop')" id="shopTab">Shop</button>
-    <button onclick="showPage('tickets')" id="ticketsTab">Scratch Tickets</button>
-    <button onclick="changeLanguage()" id="languageButton">FR</button>
-  </div>
+<h1>Scratch Life</h1>
+<p><span id="moneyLabel">Money</span>: <b id="money">0</b>€ | <span id="luckLabel">Luck</span>: <b id="luck">0</b>%</p>
+<div class="nav">
+<button onclick="show('clean')" id="cleanTab">Cleaning</button>
+<button onclick="show('shop')" id="shopTab">Shop</button>
+<button onclick="show('tickets')" id="ticketsTab">Tickets</button>
+<button onclick="toggleLang()" id="langBtn">FR</button>
+</div>
 </header>
 
 <section id="clean" class="card">
-  <h2 id="cleanTitle">Clean a car window</h2>
-  <p id="cleanDesc">Clean the dirty car window to earn 5€.</p>
-
-  <div id="carWindow">
-    <div id="dirt"></div>
-  </div>
-
-  <button class="primary" onclick="cleanWindow()" id="cleanButton">Clean window</button>
+<h2 id="cleanTitle">Clean the car window</h2>
+<p id="cleanDesc">Drag the sponge on the dirty window. When it is clean, you earn 5€.</p>
+<div class="sponge">🧽</div>
+<div id="carBox"><div id="window"></div></div>
+<button class="blue" onclick="resetWindow()" id="resetBtn">New dirty window</button>
 </section>
 
 <section id="shop" class="card hidden">
-  <h2 id="shopTitle">Shop</h2>
-  <p id="shopDesc">Buy upgrades with your fake money.</p>
-
-  <button class="green" onclick="buyLuckBoost()" id="luckButton">
-    Buy 5 minutes of luck +20% — 15€
-  </button>
+<h2 id="shopTitle">Shop</h2>
+<button class="green" onclick="buyLuck()" id="luckBtn">Buy +20% luck for 5 minutes — 15€</button>
 </section>
 
 <section id="tickets" class="card hidden">
-  <h2 id="ticketsTitle">Scratch Tickets</h2>
-  <div id="ticketList"></div>
+<h2 id="ticketsTitle">Scratch Tickets</h2>
+<div id="ticketList"></div>
 </section>
 
 <section class="card">
-  <h2 id="logTitle">History</h2>
-  <p id="log">Welcome to Scratch Life.</p>
+<h2 id="historyTitle">History</h2>
+<p id="log">Welcome to Scratch Life.</p>
 </section>
 
 <script>
-let language = "en";
-let money = 0;
-let luck = 0;
-let dirtOpacity = 1;
-let luckTimer = null;
+let money=0,luck=0,lang="en",cleaned=0,luckTimer=null,currentCanvas=null,currentTicket=null;
 
-const translations = {
-  en: {
-    money: "Money",
-    luck: "Luck",
-    cleanTab: "Cleaning",
-    shopTab: "Shop",
-    ticketsTab: "Scratch Tickets",
-    cleanTitle: "Clean a car window",
-    cleanDesc: "Clean the dirty car window to earn 5€.",
-    cleanButton: "Clean window",
-    shopTitle: "Shop",
-    shopDesc: "Buy upgrades with your fake money.",
-    luckButton: "Buy 5 minutes of luck +20% — 15€",
-    ticketsTitle: "Scratch Tickets",
-    logTitle: "History",
-    welcome: "Welcome to Scratch Life.",
-    cleanLog: "You cleaned a car window and earned 5€.",
-    noMoney: "You do not have enough money.",
-    luckBought: "Luck boost activated for 5 minutes.",
-    luckEnded: "Luck boost ended.",
-    buy: "Buy and scratch",
-    price: "Price",
-    maxPrize: "Max prize",
-    won: "You won",
-    lost: "You lost this ticket."
-  },
-  fr: {
-    money: "Argent",
-    luck: "Chance",
-    cleanTab: "Nettoyage",
-    shopTab: "Boutique",
-    ticketsTab: "Tickets à gratter",
-    cleanTitle: "Nettoyer une vitre de voiture",
-    cleanDesc: "Nettoie la vitre sale de la voiture pour gagner 5€.",
-    cleanButton: "Nettoyer la vitre",
-    shopTitle: "Boutique",
-    shopDesc: "Achète des améliorations avec ton argent fictif.",
-    luckButton: "Acheter 5 minutes de chance +20% — 15€",
-    ticketsTitle: "Tickets à gratter",
-    logTitle: "Historique",
-    welcome: "Bienvenue dans Scratch Life.",
-    cleanLog: "Tu as nettoyé une vitre de voiture et gagné 5€.",
-    noMoney: "Tu n’as pas assez d’argent.",
-    luckBought: "Boost de chance activé pendant 5 minutes.",
-    luckEnded: "Le boost de chance est terminé.",
-    buy: "Acheter et gratter",
-    price: "Prix",
-    maxPrize: "Gain maximum",
-    won: "Tu as gagné",
-    lost: "Tu as perdu ce ticket."
-  }
+const txt={
+en:{money:"Money",luck:"Luck",clean:"Cleaning",shop:"Shop",tickets:"Tickets",cleanTitle:"Clean the car window",cleanDesc:"Drag the sponge on the dirty window. When it is clean, you earn 5€.",reset:"New dirty window",shopTitle:"Shop",luckBtn:"Buy +20% luck for 5 minutes — 15€",ticketsTitle:"Scratch Tickets",history:"History",cleanWin:"Window cleaned. You earned 5€.",noMoney:"Not enough money.",luckOn:"Luck boost activated.",luckOff:"Luck boost ended.",buy:"Buy",scratch:"Scratch the grey area",lost:"Lost",won:"Won"},
+fr:{money:"Argent",luck:"Chance",clean:"Nettoyage",shop:"Boutique",tickets:"Tickets",cleanTitle:"Nettoyer la vitre",cleanDesc:"Déplace l’éponge sur la vitre sale. Quand elle est propre, tu gagnes 5€.",reset:"Nouvelle vitre sale",shopTitle:"Boutique",luckBtn:"Acheter +20% de chance pendant 5 minutes — 15€",ticketsTitle:"Tickets à gratter",history:"Historique",cleanWin:"Vitre nettoyée. Tu as gagné 5€.",noMoney:"Pas assez d’argent.",luckOn:"Boost de chance activé.",luckOff:"Boost de chance terminé.",buy:"Acheter",scratch:"Gratte la zone grise",lost:"Perdu",won:"Gagné"}
 };
 
-const tickets = [
-  { name: "Starter Ticket", price: 5, max: 20 },
-  { name: "Bronze Ticket", price: 10, max: 50 },
-  { name: "Silver Ticket", price: 20, max: 120 },
-  { name: "Gold Ticket", price: 40, max: 250 },
-  { name: "Diamond Ticket", price: 80, max: 600 },
-  { name: "Lucky 7", price: 100, max: 800 },
-  { name: "Big Win", price: 150, max: 1200 },
-  { name: "Mega Ticket", price: 250, max: 2500 },
-  { name: "Ultra Jackpot", price: 500, max: 6000 },
-  { name: "Million Dream", price: 1000, max: 15000 }
+const tickets=[
+{name:"Mini Cash",price:2,max:20,type:"number"},
+{name:"Lucky Match",price:5,max:50,type:"match"},
+{name:"Gold Rush",price:10,max:120,type:"number"},
+{name:"Treasure Box",price:15,max:200,type:"symbol"},
+{name:"X Bonus",price:20,max:300,type:"multi"},
+{name:"Diamond Line",price:25,max:400,type:"match"},
+{name:"Fast Fortune",price:30,max:500,type:"number"},
+{name:"Mega Star",price:40,max:750,type:"symbol"},
+{name:"Cash Rocket",price:50,max:1000,type:"multi"},
+{name:"Royal Scratch",price:75,max:1500,type:"number"},
+{name:"Lucky Crown",price:100,max:2000,type:"symbol"},
+{name:"Money Storm",price:125,max:2500,type:"match"},
+{name:"Golden Key",price:150,max:3000,type:"symbol"},
+{name:"Xtreme Win",price:200,max:5000,type:"multi"},
+{name:"Fortune Wheel",price:250,max:7000,type:"number"},
+{name:"Big Vault",price:300,max:9000,type:"symbol"},
+{name:"Silver Rain",price:400,max:12000,type:"match"},
+{name:"Neon Jackpot",price:500,max:15000,type:"multi"},
+{name:"Legend Ticket",price:750,max:25000,type:"number"},
+{name:"Dream Million",price:1000,max:50000,type:"symbol"}
 ];
 
-function updateDisplay() {
-  document.getElementById("money").textContent = money;
-  document.getElementById("luck").textContent = luck;
+function show(id){
+["clean","shop","tickets"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
 }
 
-function showPage(page) {
-  document.getElementById("clean").classList.add("hidden");
-  document.getElementById("shop").classList.add("hidden");
-  document.getElementById("tickets").classList.add("hidden");
-
-  document.getElementById(page).classList.remove("hidden");
+function upd(){
+money=Math.floor(money);
+document.getElementById("money").textContent=money;
+document.getElementById("luck").textContent=luck;
 }
 
-function setLog(text) {
-  document.getElementById("log").textContent = text;
+function log(m){document.getElementById("log").textContent=m}
+
+function applyLang(){
+let t=txt[lang];
+document.documentElement.lang=lang;
+moneyLabel.textContent=t.money; luckLabel.textContent=t.luck;
+cleanTab.textContent=t.clean; shopTab.textContent=t.shop; ticketsTab.textContent=t.tickets;
+cleanTitle.textContent=t.cleanTitle; cleanDesc.textContent=t.cleanDesc; resetBtn.textContent=t.reset;
+shopTitle.textContent=t.shopTitle; luckBtn.textContent=t.luckBtn;
+ticketsTitle.textContent=t.ticketsTitle; historyTitle.textContent=t.history;
+langBtn.textContent=lang==="en"?"FR":"EN";
+renderTickets();
+}
+function toggleLang(){lang=lang==="en"?"fr":"en";applyLang()}
+
+function resetWindow(){
+const w=document.getElementById("window");
+w.innerHTML="";
+cleaned=0;
+for(let i=0;i<18;i++){
+let d=document.createElement("div");
+d.className="dirt";
+d.style.left=Math.random()*300+"px";
+d.style.top=Math.random()*155+"px";
+w.appendChild(d);
+}
 }
 
-function cleanWindow() {
-  money += 5;
-  dirtOpacity -= 0.25;
+document.getElementById("window").addEventListener("mousemove",cleanMove);
+document.getElementById("window").addEventListener("touchmove",e=>{
+e.preventDefault();
+let r=e.target.getBoundingClientRect();
+let touch=e.touches[0];
+cleanAt(touch.clientX-r.left,touch.clientY-r.top);
+},{passive:false});
 
-  if (dirtOpacity < 0) {
-    dirtOpacity = 1;
-  }
-
-  document.getElementById("dirt").style.opacity = dirtOpacity;
-  setLog(translations[language].cleanLog);
-  updateDisplay();
+function cleanMove(e){
+if(e.buttons!==1)return;
+let r=e.target.getBoundingClientRect();
+cleanAt(e.clientX-r.left,e.clientY-r.top);
 }
 
-function buyLuckBoost() {
-  if (money < 15) {
-    setLog(translations[language].noMoney);
-    return;
-  }
-
-  money -= 15;
-  luck = 20;
-
-  clearTimeout(luckTimer);
-
-  luckTimer = setTimeout(() => {
-    luck = 0;
-    setLog(translations[language].luckEnded);
-    updateDisplay();
-  }, 300000);
-
-  setLog(translations[language].luckBought);
-  updateDisplay();
+function cleanAt(x,y){
+document.querySelectorAll(".dirt").forEach(d=>{
+let dx=parseFloat(d.style.left)+25-x;
+let dy=parseFloat(d.style.top)+25-y;
+if(Math.sqrt(dx*dx+dy*dy)<45){
+d.remove();
+cleaned++;
+}
+});
+if(document.querySelectorAll(".dirt").length===0){
+money+=5;
+log(txt[lang].cleanWin);
+upd();
+resetWindow();
+}
 }
 
-function buyTicket(index) {
-  const ticket = tickets[index];
-
-  if (money < ticket.price) {
-    setLog(translations[language].noMoney);
-    return;
-  }
-
-  money -= ticket.price;
-
-  const winChance = 40 + luck;
-  const randomNumber = Math.random() * 100;
-
-  if (randomNumber <= winChance) {
-    const prize = Math.floor(Math.random() * ticket.max) + 1;
-    money += prize;
-    setLog(`${ticket.name}: ${translations[language].won} ${prize}€.`);
-  } else {
-    setLog(`${ticket.name}: ${translations[language].lost}`);
-  }
-
-  updateDisplay();
+function buyLuck(){
+if(money<15){log(txt[lang].noMoney);return}
+money-=15;luck=20;upd();log(txt[lang].luckOn);
+clearTimeout(luckTimer);
+luckTimer=setTimeout(()=>{luck=0;upd();log(txt[lang].luckOff)},300000);
 }
 
-function renderTickets() {
-  const list = document.getElementById("ticketList");
-  list.innerHTML = "";
-
-  tickets.forEach((ticket, index) => {
-    const div = document.createElement("div");
-    div.className = "ticket";
-
-    div.innerHTML = `
-      <h3>${ticket.name}</h3>
-      <p>${translations[language].price}: ${ticket.price}€</p>
-      <p>${translations[language].maxPrize}: ${ticket.max}€</p>
-      <button class="yellow" onclick="buyTicket(${index})">
-        ${translations[language].buy}
-      </button>
-    `;
-
-    list.appendChild(div);
-  });
+function renderTickets(){
+let list=document.getElementById("ticketList");
+list.innerHTML="";
+tickets.forEach((tk,i)=>{
+let div=document.createElement("div");
+div.className="ticket";
+div.innerHTML=`
+<h3>${tk.name}</h3>
+<p>${txt[lang].money}: ${tk.price}€ | Max: ${tk.max}€</p>
+<p>${txt[lang].scratch}</p>
+<button class="gold" onclick="buyTicket(${i})">${txt[lang].buy}</button>
+<div id="play${i}"></div>`;
+list.appendChild(div);
+});
 }
 
-function changeLanguage() {
-  language = language === "en" ? "fr" : "en";
-  applyLanguage();
+function buyTicket(i){
+let tk=tickets[i];
+if(money<tk.price){log(txt[lang].noMoney);return}
+money-=tk.price;upd();
+let prize=calculatePrize(tk);
+let zone=document.getElementById("play"+i);
+zone.innerHTML="";
+let area=document.createElement("div");
+area.className="scratchArea";
+
+let result=document.createElement("div");
+result.className="result";
+result.innerHTML=createTicketText(tk,prize);
+
+let canvas=document.createElement("canvas");
+canvas.width=280;canvas.height=120;
+
+area.appendChild(result);
+area.appendChild(canvas);
+zone.appendChild(area);
+setupScratch(canvas,prize,tk);
 }
 
-function applyLanguage() {
-  const t = translations[language];
-
-  document.documentElement.lang = language;
-
-  document.getElementById("moneyText").textContent = t.money;
-  document.getElementById("luckText").textContent = t.luck;
-  document.getElementById("cleanTab").textContent = t.cleanTab;
-  document.getElementById("shopTab").textContent = t.shopTab;
-  document.getElementById("ticketsTab").textContent = t.ticketsTab;
-  document.getElementById("cleanTitle").textContent = t.cleanTitle;
-  document.getElementById("cleanDesc").textContent = t.cleanDesc;
-  document.getElementById("cleanButton").textContent = t.cleanButton;
-  document.getElementById("shopTitle").textContent = t.shopTitle;
-  document.getElementById("shopDesc").textContent = t.shopDesc;
-  document.getElementById("luckButton").textContent = t.luckButton;
-  document.getElementById("ticketsTitle").textContent = t.ticketsTitle;
-  document.getElementById("logTitle").textContent = t.logTitle;
-  document.getElementById("languageButton").textContent = language === "en" ? "FR" : "EN";
-
-  renderTickets();
+function calculatePrize(tk){
+let base=35+luck;
+let roll=Math.random()*100;
+if(roll>base)return 0;
+let prize=Math.floor(Math.random()*tk.max)+1;
+if(tk.type==="multi" && Math.random()<0.25) prize*=2;
+return prize;
 }
 
-applyLanguage();
-updateDisplay();
+function createTicketText(tk,prize){
+if(tk.type==="number"){
+let win=Math.floor(Math.random()*20)+1;
+let yours=[1,2,3,4,5].map(()=>Math.floor(Math.random()*20)+1);
+if(prize>0)yours[2]=win;
+return `Win: ${win}<br>Your numbers: ${yours.join(" - ")}<br>${prize>0?txt[lang].won+" "+prize+"€":txt[lang].lost}`;
+}
+if(tk.type==="match"){
+let a=Math.floor(Math.random()*9)+1,b=prize>0?a:Math.floor(Math.random()*9)+1;
+if(prize===0 && a===b)b=(b%9)+1;
+return `${a} / ${b}<br>${prize>0?txt[lang].won+" "+prize+"€":txt[lang].lost}`;
+}
+if(tk.type==="symbol"){
+let symbols=["⭐","💎","🔑","👑","🍀"];
+let s=prize>0?"👑":symbols[Math.floor(Math.random()*symbols.length)];
+return `Find 👑<br>${s}<br>${prize>0?txt[lang].won+" "+prize+"€":txt[lang].lost}`;
+}
+if(tk.type==="multi"){
+let mult=prize>0?2:1;
+return `Multiplier: x${mult}<br>${prize>0?txt[lang].won+" "+prize+"€":txt[lang].lost}`;
+}
+}
+
+function setupScratch(canvas,prize,tk){
+let ctx=canvas.getContext("2d");
+ctx.fillStyle="#999";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#ddd";
+ctx.font="20px Arial";
+ctx.fillText("SCRATCH",90,65);
+ctx.globalCompositeOperation="destination-out";
+
+function scratch(x,y){
+ctx.beginPath();
+ctx.arc(x,y,18,0,Math.PI*2);
+ctx.fill();
+check(canvas,prize,tk);
+}
+
+canvas.addEventListener("mousemove",e=>{
+if(e.buttons!==1)return;
+let r=canvas.getBoundingClientRect();
+scratch(e.clientX-r.left,e.clientY-r.top);
+});
+canvas.addEventListener("touchmove",e=>{
+e.preventDefault();
+let r=canvas.getBoundingClientRect();
+let t=e.touches[0];
+scratch(t.clientX-r.left,t.clientY-r.top);
+},{passive:false});
+}
+
+let checked=false;
+function check(canvas,prize,tk){
+let ctx=canvas.getContext("2d");
+let data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+let clear=0;
+for(let i=3;i<data.length;i+=4){if(data[i]===0)clear++}
+let percent=clear/(canvas.width*canvas.height)*100;
+if(percent>55){
+canvas.style.display="none";
+if(prize>0){
+money+=prize;
+log(`${tk.name}: ${txt[lang].won} ${prize}€`);
+}else{
+log(`${tk.name}: ${txt[lang].lost}`);
+}
+upd();
+}
+}
+
+resetWindow();
+applyLang();
+upd();
 </script>
-
 </body>
 </html>
