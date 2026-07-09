@@ -13,7 +13,7 @@ let symbolLevel = 1;
 let scratchLevel = 1;
 let autoLevel = 0;
 let workLevel = 1;
-let workGain = 5;
+let workGain = 1;
 
 let gadgets = {
   trash: false,
@@ -32,97 +32,105 @@ const tickets = [
   {
     name: "Petit Départ",
     icon: "🎟️",
-    price: 5,
-    max: 40,
+    price: 15,
+    max: 20,
     level: 1,
     style: "ticket-orange",
     rule: "Trouve 3 symboles identiques.",
     symbols: [
-      { icon: "🍒", value: 0, chance: 35 },
-      { icon: "🍋", value: 2, chance: 25 },
-      { icon: "🍀", value: 5, chance: 18 },
-      { icon: "💎", value: 15, chance: 6 },
-      { icon: "?", value: 40, chance: 0.2 }
+      { icon: "🍒", value: 0, chance: 55 },
+      { icon: "🍋", value: 1, chance: 25 },
+      { icon: "🍀", value: 3, chance: 10 },
+      { icon: "💎", value: 8, chance: 2 },
+      { icon: "?", value: 20, chance: 0.05 }
     ]
   },
   {
     name: "Double Chance",
     icon: "2x",
-    price: 25,
-    max: 250,
-    level: 2,
+    price: 60,
+    max: 100,
+    level: 3,
     style: "ticket-blue",
     rule: "Trouve deux gains identiques.",
     symbols: [
-      { icon: "0€", value: 0, chance: 45 },
-      { icon: "5€", value: 5, chance: 25 },
-      { icon: "15€", value: 15, chance: 14 },
-      { icon: "50€", value: 50, chance: 4 },
-      { icon: "?", value: 250, chance: 0.15 }
+      { icon: "0€", value: 0, chance: 60 },
+      { icon: "2€", value: 2, chance: 20 },
+      { icon: "5€", value: 5, chance: 10 },
+      { icon: "20€", value: 20, chance: 2 },
+      { icon: "?", value: 100, chance: 0.04 }
     ]
   },
   {
     name: "Pommier",
     icon: "🌳",
-    price: 120,
-    max: 900,
-    level: 4,
+    price: 200,
+    max: 500,
+    level: 5,
     style: "ticket-apple",
     rule: "Les fruits donnent des gains. Les vers donnent 0€.",
     symbols: [
-      { icon: "🪱", value: 0, chance: 40 },
-      { icon: "🍏", value: 20, chance: 24 },
-      { icon: "🍎", value: 40, chance: 14 },
-      { icon: "🍐", value: 90, chance: 6 },
-      { icon: "?", value: 900, chance: 0.1 }
+      { icon: "🪱", value: 0, chance: 60 },
+      { icon: "🍏", value: 5, chance: 20 },
+      { icon: "🍎", value: 15, chance: 8 },
+      { icon: "🍐", value: 50, chance: 2 },
+      { icon: "?", value: 500, chance: 0.03 }
     ]
   },
   {
     name: "Coffre Royal",
     icon: "🔐",
-    price: 500,
-    max: 5000,
-    level: 6,
+    price: 1000,
+    max: 3000,
+    level: 8,
     style: "ticket-gold",
     rule: "La clé ouvre le gain. Le coffre vide ne donne rien.",
     symbols: [
-      { icon: "📦", value: 0, chance: 44 },
-      { icon: "🗝️", value: 100, chance: 18 },
-      { icon: "💰", value: 300, chance: 10 },
-      { icon: "👑", value: 1000, chance: 2 },
-      { icon: "?", value: 5000, chance: 0.08 }
+      { icon: "📦", value: 0, chance: 65 },
+      { icon: "🗝️", value: 30, chance: 15 },
+      { icon: "💰", value: 150, chance: 5 },
+      { icon: "👑", value: 600, chance: 1 },
+      { icon: "?", value: 3000, chance: 0.02 }
     ]
   },
   {
     name: "Dernière Chance",
     icon: "💀",
-    price: 5000,
-    max: 100000,
-    level: 10,
+    price: 10000,
+    max: 50000,
+    level: 12,
     style: "ticket-red",
     rule: "Ticket dangereux. Le symbole ? est le jackpot.",
     symbols: [
-      { icon: "💀", value: 0, chance: 55 },
-      { icon: "🩸", value: -500, chance: 12 },
-      { icon: "🔥", value: 1000, chance: 6 },
-      { icon: "💎", value: 8000, chance: 1 },
-      { icon: "?", value: 100000, chance: 0.03 }
+      { icon: "💀", value: 0, chance: 70 },
+      { icon: "🩸", value: -500, chance: 10 },
+      { icon: "🔥", value: 500, chance: 4 },
+      { icon: "💎", value: 3000, chance: 0.8 },
+      { icon: "?", value: 50000, chance: 0.01 }
     ]
   }
 ];
 
 const gadgetsList = [
-  { key: "trash", name: "Poubelle", icon: "🗑️", price: 50, desc: "Permet de jeter les tickets." },
-  { key: "fan", name: "Ventilo", icon: "🌀", price: 150, desc: "Décor animé sur la table." },
-  { key: "robot", name: "Robot", icon: "🤖", price: 350, desc: "Assistant inutile mais stylé." },
-  { key: "mat", name: "Tapis", icon: "▦", price: 500, desc: "Tapis de grattage sur la table." }
+  { key: "trash", name: "Poubelle", icon: "🗑️", price: 80, desc: "Permet de jeter les tickets." },
+  { key: "fan", name: "Ventilo", icon: "🌀", price: 200, desc: "Décor animé sur la table." },
+  { key: "robot", name: "Robot", icon: "🤖", price: 500, desc: "Assistant inutile mais stylé." },
+  { key: "mat", name: "Tapis", icon: "▦", price: 750, desc: "Tapis de grattage sur la table." }
 ];
 
 const workTasks = [
-  { name: "Nettoyer une vitre", reward: 5, xp: 8, time: 1500 },
-  { name: "Ranger les magazines", reward: 7, xp: 10, time: 2000 },
-  { name: "Servir un client pressé", reward: 9, xp: 12, time: 2500 },
-  { name: "Porter des cartons", reward: 12, xp: 14, time: 3200 }
+  { name: "Nettoyer une vitre sale", reward: 1, xp: 5 },
+  { name: "Nettoyer une vitre très sale", reward: 2, xp: 7 },
+  { name: "Nettoyer un pare-brise dégueu", reward: 3, xp: 9 },
+  { name: "Nettoyer une voiture entière", reward: 5, xp: 12 }
+];
+
+const objectives = [
+  { text: "Gagner tes premiers 10€", done: () => money >= 10 },
+  { text: "Acheter ton premier ticket", done: () => tableTickets.length > 0 },
+  { text: "Atteindre le niveau 3", done: () => level >= 3 },
+  { text: "Acheter la poubelle", done: () => gadgets.trash },
+  { text: "Débloquer le Pommier", done: () => level >= 5 }
 ];
 
 function $(id) {
@@ -142,16 +150,16 @@ function updateUI() {
   $("xpFill").style.width = xp + "%";
 
   $("chanceLevel").textContent = chanceLevel;
-  $("chanceCost").textContent = format(chanceLevel * 500);
+  $("chanceCost").textContent = format(chanceLevel * 700);
 
   $("symbolLevel").textContent = symbolLevel;
-  $("symbolCost").textContent = format(symbolLevel * 750);
+  $("symbolCost").textContent = format(symbolLevel * 1000);
 
   $("scratchLevel").textContent = scratchLevel;
-  $("scratchCost").textContent = format(scratchLevel * 300);
+  $("scratchCost").textContent = format(scratchLevel * 500);
 
   $("autoLevel").textContent = autoLevel;
-  $("autoCost").textContent = format((autoLevel + 1) * 1000);
+  $("autoCost").textContent = format((autoLevel + 1) * 2000);
 
   $("workGainText").textContent = format(workGain);
   $("debt").textContent = format(debt);
@@ -187,6 +195,7 @@ function showResult(text, color) {
 
 function addXp(amount) {
   xp += amount;
+
   while (xp >= 100) {
     xp -= 100;
     level++;
@@ -207,6 +216,7 @@ function renderCatalog() {
 
   if (currentTab === "gadgets") {
     $("catalogTitle").textContent = "Gadgets";
+
     gadgetsList.forEach(gadget => {
       const owned = gadgets[gadget.key];
       const item = document.createElement("div");
@@ -222,6 +232,7 @@ function renderCatalog() {
       item.onclick = () => buyGadget(gadget);
       catalog.appendChild(item);
     });
+
     return;
   }
 
@@ -239,11 +250,28 @@ function renderCatalog() {
         Max : ${locked ? "?" : format(ticket.max) + "€"}
       </div>
     `;
+
     item.onclick = () => {
       if (!locked) buyTicket(ticket);
     };
+
     catalog.appendChild(item);
   });
+
+  renderObjectives();
+}
+
+function renderObjectives() {
+  const box = document.createElement("div");
+  box.className = "catalog-item";
+  box.style.display = "block";
+  box.innerHTML = `<b>Objectifs</b><br>`;
+
+  objectives.forEach(obj => {
+    box.innerHTML += `${obj.done() ? "✅" : "⬜"} ${obj.text}<br>`;
+  });
+
+  $("catalog").appendChild(box);
 }
 
 function renderMain() {
@@ -259,22 +287,76 @@ function doWork() {
   }
 
   const task = workTasks[Math.min(workLevel - 1, workTasks.length - 1)];
-  const button = document.querySelector(".big-button");
 
-  button.disabled = true;
-  button.textContent = task.name + "...";
+  $("workScreen").innerHTML = `
+    <h1>🧽 ${task.name}</h1>
+    <p>Frotte vraiment la vitre pour gagner ${task.reward}€.</p>
+    <div class="car-clean-box" id="carCleanBox">
+      <div class="car-window" id="carWindow"></div>
+      <div class="sponge" id="sponge">🧽</div>
+    </div>
+  `;
 
-  setTimeout(() => {
-    const reward = task.reward + (workLevel - 1) * 3;
-    money += reward;
-    addXp(task.xp);
-    addHistory(`💼 ${task.name} : +${reward}€`);
-    showResult("+" + reward + "€", "#51cf66");
-    button.disabled = false;
-    button.textContent = "Travailler";
-    updateUI();
-    renderCatalog();
-  }, task.time);
+  const windowBox = $("carWindow");
+
+  for (let i = 0; i < 20 + workLevel * 6; i++) {
+    const dirt = document.createElement("div");
+    dirt.className = "dirt";
+    dirt.style.left = Math.random() * 320 + "px";
+    dirt.style.top = Math.random() * 160 + "px";
+    windowBox.appendChild(dirt);
+  }
+
+  const cleanBox = $("carCleanBox");
+  const sponge = $("sponge");
+
+  function cleanAt(clientX, clientY) {
+    const rect = cleanBox.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+    sponge.style.display = "block";
+    sponge.style.left = x + "px";
+    sponge.style.top = y + "px";
+
+    document.querySelectorAll(".dirt").forEach(dirt => {
+      const d = dirt.getBoundingClientRect();
+      const dx = d.left - rect.left + 30 - x;
+      const dy = d.top - rect.top + 30 - y;
+
+      if (Math.sqrt(dx * dx + dy * dy) < 45) {
+        dirt.remove();
+      }
+    });
+
+    if (document.querySelectorAll(".dirt").length === 0) {
+      money += task.reward;
+      addXp(task.xp);
+      addHistory(`🧽 ${task.name} : +${task.reward}€`);
+      showResult("+" + task.reward + "€", "#51cf66");
+
+      $("workScreen").innerHTML = `
+        <h1>💼 Métro, boulot, dodo</h1>
+        <p>Tu commences avec 0€. Travaille pour acheter tes premiers tickets.</p>
+        <button class="big-button" onclick="doWork()">Travailler</button>
+        <p>Gain actuel : <b><span id="workGainText">${workGain}</span> €</b></p>
+      `;
+
+      updateUI();
+      renderCatalog();
+    }
+  }
+
+  cleanBox.addEventListener("mousemove", e => {
+    if (e.buttons !== 1) return;
+    cleanAt(e.clientX, e.clientY);
+  });
+
+  cleanBox.addEventListener("touchmove", e => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    cleanAt(touch.clientX, touch.clientY);
+  }, { passive: false });
 }
 
 function buyTicket(ticket) {
@@ -291,8 +373,8 @@ function buyTicket(ticket) {
   if (!infiniteMoney) money -= ticket.price;
 
   const table = $("table");
-  const x = 150 + Math.random() * (table.clientWidth - 330);
-  const y = 120 + Math.random() * (table.clientHeight - 330);
+  const x = 150 + Math.random() * Math.max(100, table.clientWidth - 330);
+  const y = 120 + Math.random() * Math.max(100, table.clientHeight - 330);
 
   tableTickets.push({
     id: Date.now() + Math.random(),
@@ -328,7 +410,7 @@ function renderTableTickets() {
 
     div.ondblclick = () => openTicket(tableTicket);
 
-    div.onclick = e => {
+    div.onclick = () => {
       if (!draggingTicket) openTicket(tableTicket);
     };
 
@@ -344,9 +426,11 @@ function startDrag(e, tableTicket) {
 
 document.addEventListener("mousemove", e => {
   if (!draggingTicket) return;
+
   const rect = $("table").getBoundingClientRect();
   draggingTicket.x = e.clientX - rect.left - dragOffsetX;
   draggingTicket.y = e.clientY - rect.top - dragOffsetY;
+
   renderTableTickets();
 });
 
@@ -360,16 +444,20 @@ function startTouchDrag(e, tableTicket) {
   draggingTicket = tableTicket;
   const touch = e.touches[0];
   const rect = $("table").getBoundingClientRect();
+
   dragOffsetX = touch.clientX - rect.left - tableTicket.x;
   dragOffsetY = touch.clientY - rect.top - tableTicket.y;
 }
 
 document.addEventListener("touchmove", e => {
   if (!draggingTicket) return;
+
   const touch = e.touches[0];
   const rect = $("table").getBoundingClientRect();
+
   draggingTicket.x = touch.clientX - rect.left - dragOffsetX;
   draggingTicket.y = touch.clientY - rect.top - dragOffsetY;
+
   renderTableTickets();
 }, { passive: false });
 
@@ -438,6 +526,7 @@ function openTicket(tableTicket) {
     ${autoLevel > 0 ? `<button class="auto-button" onclick="autoScratch()">Autogratteur</button>` : ""}
     <div class="ticket-info">
       <h3>Table des symboles</h3>
+      <p><b>Un symbole compte seulement s’il est gratté à 60% ou plus.</b></p>
       <p>Le symbole <b>?</b> = jackpot.</p>
       ${activeTicket.ticket.symbols.map(s => `<p>${s.icon} : ${s.value}€</p>`).join("")}
       <hr>
@@ -449,6 +538,7 @@ function openTicket(tableTicket) {
   $("tableItems").appendChild(panel);
 
   const grid = $("scratchGrid");
+
   activeTicket.values.forEach((value, index) => {
     const zone = document.createElement("div");
     zone.className = "scratch-zone";
@@ -461,22 +551,25 @@ function openTicket(tableTicket) {
 
     zone.appendChild(canvas);
     grid.appendChild(zone);
+
     setupCanvas(canvas);
   });
 }
 
 function generateTicketValues(ticket) {
   const values = [];
+
   for (let i = 0; i < 6; i++) {
     values.push(weightedSymbol(ticket.symbols));
   }
 
-  const generalChance = 3 + chanceLevel * 1.2;
-  const symbolBonus = symbolLevel * 0.3;
+  const generalChance = 1 + chanceLevel * 0.5;
+  const symbolBonus = symbolLevel * 0.15;
 
   if (Math.random() * 100 < generalChance + symbolBonus) {
     const goodSymbols = ticket.symbols.filter(s => s.value > 0);
     const chosen = goodSymbols[Math.floor(Math.random() * goodSymbols.length)];
+
     values[0] = chosen;
     values[1] = chosen;
     values[2] = chosen;
@@ -499,8 +592,10 @@ function weightedSymbol(symbols) {
 
 function setupCanvas(canvas) {
   const ctx = canvas.getContext("2d");
+
   ctx.fillStyle = "#bfc3c7";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   ctx.fillStyle = "#777";
   ctx.font = "28px Arial";
   ctx.fillText("?", 45, 52);
@@ -508,28 +603,35 @@ function setupCanvas(canvas) {
   ctx.globalCompositeOperation = "destination-out";
 
   function scratch(x, y) {
-    const size = 12 + scratchLevel * 5;
+    const size = 8 + scratchLevel * 4;
+
     ctx.beginPath();
     ctx.arc(x, y, size, 0, Math.PI * 2);
     ctx.fill();
+
     updateRevealPercent();
   }
 
   canvas.addEventListener("mousemove", e => {
     if (e.buttons !== 1) return;
+
     const rect = canvas.getBoundingClientRect();
     scratch(e.clientX - rect.left, e.clientY - rect.top);
   });
 
   canvas.addEventListener("touchmove", e => {
     e.preventDefault();
+
     const rect = canvas.getBoundingClientRect();
     const touch = e.touches[0];
+
     scratch(touch.clientX - rect.left, touch.clientY - rect.top);
   }, { passive: false });
 }
 
 function updateRevealPercent() {
+  if (!activeTicket) return;
+
   const canvases = [...document.querySelectorAll(".scratch-zone canvas")];
   let totalPercent = 0;
 
@@ -557,6 +659,7 @@ function finishTicket() {
   const visibleSymbols = revealedIndexes.map(i => activeTicket.values[i]);
 
   const counts = {};
+
   visibleSymbols.forEach(symbol => {
     counts[symbol.icon] = (counts[symbol.icon] || 0) + 1;
   });
@@ -578,16 +681,16 @@ function finishTicket() {
 
   if (gain > 0) {
     money += gain;
-    addXp(18);
+    addXp(16);
     showResult("GAGNÉ +" + format(gain) + "€", "lime");
     addHistory(`✅ ${activeTicket.ticket.name} terminé : +${format(gain)}€.`);
   } else if (gain < 0) {
     money += gain;
-    addXp(5);
+    addXp(4);
     showResult("PERTE " + format(gain) + "€", "red");
     addHistory(`💀 ${activeTicket.ticket.name} terminé : ${format(gain)}€.`);
   } else {
-    addXp(5);
+    addXp(4);
     showResult("0€", "red");
     addHistory(`❌ ${activeTicket.ticket.name} terminé : aucun gain.`);
   }
@@ -616,7 +719,7 @@ function getRevealedIndexes() {
 
     const percent = clear / (canvas.width * canvas.height) * 100;
 
-    if (percent >= 35) {
+    if (percent >= 60) {
       indexes.push(index);
       canvas.style.display = "none";
     }
@@ -639,27 +742,29 @@ function autoScratch() {
 
     const canvas = canvases[i];
     const ctx = canvas.getContext("2d");
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     canvas.style.display = "none";
+
     i++;
     updateRevealPercent();
-  }, 400);
+  }, 600);
 }
 
 function upgradeChance() {
-  buyUpgrade("chance", chanceLevel * 500, () => chanceLevel++);
+  buyUpgrade("chance", chanceLevel * 700, () => chanceLevel++);
 }
 
 function upgradeSymbol() {
-  buyUpgrade("symbol", symbolLevel * 750, () => symbolLevel++);
+  buyUpgrade("symbol", symbolLevel * 1000, () => symbolLevel++);
 }
 
 function upgradeScratchSize() {
-  buyUpgrade("scratch", scratchLevel * 300, () => scratchLevel++);
+  buyUpgrade("taille de grattage", scratchLevel * 500, () => scratchLevel++);
 }
 
 function buyAutoScratcher() {
-  buyUpgrade("auto", (autoLevel + 1) * 1000, () => autoLevel++);
+  buyUpgrade("autogratteur", (autoLevel + 1) * 2000, () => autoLevel++);
 }
 
 function buyUpgrade(name, cost, callback) {
@@ -669,6 +774,7 @@ function buyUpgrade(name, cost, callback) {
   }
 
   if (!infiniteMoney) money -= cost;
+
   callback();
   showResult("AMÉLIORÉ", "#ffd43b");
   addHistory(`⬆️ Amélioration achetée : ${name}.`);
@@ -687,9 +793,12 @@ function buyGadget(gadget) {
   }
 
   if (!infiniteMoney) money -= gadget.price;
+
   gadgets[gadget.key] = true;
+
   showResult(gadget.name + " acheté", "#51cf66");
   addHistory(`🛒 Gadget acheté : ${gadget.name}.`);
+
   updateUI();
   renderCatalog();
 }
@@ -706,9 +815,11 @@ function payDebt() {
   }
 
   if (!infiniteMoney) money -= debt;
+
   addHistory(`✅ Dette remboursée : ${format(debt)}€.`);
   debt = 0;
   debtHours = 0;
+
   updateUI();
 }
 
@@ -723,7 +834,10 @@ setInterval(() => {
 
   if (blockedHours > 0) {
     blockedHours--;
-    if (blockedHours === 0) addHistory("✅ Blocage terminé.");
+
+    if (blockedHours === 0) {
+      addHistory("✅ Blocage terminé.");
+    }
   }
 
   updateUI();
