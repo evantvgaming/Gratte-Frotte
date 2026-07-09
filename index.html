@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Scratch Life</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      color: #222;
+      text-align: center;
+    }
+
+    header {
+      background: #202020;
+      color: white;
+      padding: 15px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 6px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .nav button {
+      background: #444;
+      color: white;
+    }
+
+    .card {
+      background: white;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .ticket {
+      background: #ffe08a;
+      margin: 12px;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    #carWindow {
+      width: 320px;
+      height: 170px;
+      margin: 20px auto;
+      background: #74c0fc;
+      border: 8px solid #333;
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #dirt {
+      position: absolute;
+      inset: 0;
+      background: repeating-radial-gradient(circle, #7a4b20 0 8px, transparent 9px 22px);
+      opacity: 1;
+    }
+
+    .primary {
+      background: #4dabf7;
+      color: white;
+    }
+
+    .green {
+      background: #51cf66;
+    }
+
+    .yellow {
+      background: #ffd43b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 id="title">Scratch Life</h1>
+  <p>
+    <span id="moneyText">Money</span>: <b id="money">0</b>€
+    |
+    <span id="luckText">Luck</span>: <b id="luck">0</b>%
+  </p>
+
+  <div class="nav">
+    <button onclick="showPage('clean')" id="cleanTab">Cleaning</button>
+    <button onclick="showPage('shop')" id="shopTab">Shop</button>
+    <button onclick="showPage('tickets')" id="ticketsTab">Scratch Tickets</button>
+    <button onclick="changeLanguage()" id="languageButton">FR</button>
+  </div>
+</header>
+
+<section id="clean" class="card">
+  <h2 id="cleanTitle">Clean a car window</h2>
+  <p id="cleanDesc">Clean the dirty car window to earn 5€.</p>
+
+  <div id="carWindow">
+    <div id="dirt"></div>
+  </div>
+
+  <button class="primary" onclick="cleanWindow()" id="cleanButton">Clean window</button>
+</section>
+
+<section id="shop" class="card hidden">
+  <h2 id="shopTitle">Shop</h2>
+  <p id="shopDesc">Buy upgrades with your fake money.</p>
+
+  <button class="green" onclick="buyLuckBoost()" id="luckButton">
+    Buy 5 minutes of luck +20% — 15€
+  </button>
+</section>
+
+<section id="tickets" class="card hidden">
+  <h2 id="ticketsTitle">Scratch Tickets</h2>
+  <div id="ticketList"></div>
+</section>
+
+<section class="card">
+  <h2 id="logTitle">History</h2>
+  <p id="log">Welcome to Scratch Life.</p>
+</section>
+
+<script>
+let language = "en";
+let money = 0;
+let luck = 0;
+let dirtOpacity = 1;
+let luckTimer = null;
+
+const translations = {
+  en: {
+    money: "Money",
+    luck: "Luck",
+    cleanTab: "Cleaning",
+    shopTab: "Shop",
+    ticketsTab: "Scratch Tickets",
+    cleanTitle: "Clean a car window",
+    cleanDesc: "Clean the dirty car window to earn 5€.",
+    cleanButton: "Clean window",
+    shopTitle: "Shop",
+    shopDesc: "Buy upgrades with your fake money.",
+    luckButton: "Buy 5 minutes of luck +20% — 15€",
+    ticketsTitle: "Scratch Tickets",
+    logTitle: "History",
+    welcome: "Welcome to Scratch Life.",
+    cleanLog: "You cleaned a car window and earned 5€.",
+    noMoney: "You do not have enough money.",
+    luckBought: "Luck boost activated for 5 minutes.",
+    luckEnded: "Luck boost ended.",
+    buy: "Buy and scratch",
+    price: "Price",
+    maxPrize: "Max prize",
+    won: "You won",
+    lost: "You lost this ticket."
+  },
+  fr: {
+    money: "Argent",
+    luck: "Chance",
+    cleanTab: "Nettoyage",
+    shopTab: "Boutique",
+    ticketsTab: "Tickets à gratter",
+    cleanTitle: "Nettoyer une vitre de voiture",
+    cleanDesc: "Nettoie la vitre sale de la voiture pour gagner 5€.",
+    cleanButton: "Nettoyer la vitre",
+    shopTitle: "Boutique",
+    shopDesc: "Achète des améliorations avec ton argent fictif.",
+    luckButton: "Acheter 5 minutes de chance +20% — 15€",
+    ticketsTitle: "Tickets à gratter",
+    logTitle: "Historique",
+    welcome: "Bienvenue dans Scratch Life.",
+    cleanLog: "Tu as nettoyé une vitre de voiture et gagné 5€.",
+    noMoney: "Tu n’as pas assez d’argent.",
+    luckBought: "Boost de chance activé pendant 5 minutes.",
+    luckEnded: "Le boost de chance est terminé.",
+    buy: "Acheter et gratter",
+    price: "Prix",
+    maxPrize: "Gain maximum",
+    won: "Tu as gagné",
+    lost: "Tu as perdu ce ticket."
+  }
+};
+
+const tickets = [
+  { name: "Starter Ticket", price: 5, max: 20 },
+  { name: "Bronze Ticket", price: 10, max: 50 },
+  { name: "Silver Ticket", price: 20, max: 120 },
+  { name: "Gold Ticket", price: 40, max: 250 },
+  { name: "Diamond Ticket", price: 80, max: 600 },
+  { name: "Lucky 7", price: 100, max: 800 },
+  { name: "Big Win", price: 150, max: 1200 },
+  { name: "Mega Ticket", price: 250, max: 2500 },
+  { name: "Ultra Jackpot", price: 500, max: 6000 },
+  { name: "Million Dream", price: 1000, max: 15000 }
+];
+
+function updateDisplay() {
+  document.getElementById("money").textContent = money;
+  document.getElementById("luck").textContent = luck;
+}
+
+function showPage(page) {
+  document.getElementById("clean").classList.add("hidden");
+  document.getElementById("shop").classList.add("hidden");
+  document.getElementById("tickets").classList.add("hidden");
+
+  document.getElementById(page).classList.remove("hidden");
+}
+
+function setLog(text) {
+  document.getElementById("log").textContent = text;
+}
+
+function cleanWindow() {
+  money += 5;
+  dirtOpacity -= 0.25;
+
+  if (dirtOpacity < 0) {
+    dirtOpacity = 1;
+  }
+
+  document.getElementById("dirt").style.opacity = dirtOpacity;
+  setLog(translations[language].cleanLog);
+  updateDisplay();
+}
+
+function buyLuckBoost() {
+  if (money < 15) {
+    setLog(translations[language].noMoney);
+    return;
+  }
+
+  money -= 15;
+  luck = 20;
+
+  clearTimeout(luckTimer);
+
+  luckTimer = setTimeout(() => {
+    luck = 0;
+    setLog(translations[language].luckEnded);
+    updateDisplay();
+  }, 300000);
+
+  setLog(translations[language].luckBought);
+  updateDisplay();
+}
+
+function buyTicket(index) {
+  const ticket = tickets[index];
+
+  if (money < ticket.price) {
+    setLog(translations[language].noMoney);
+    return;
+  }
+
+  money -= ticket.price;
+
+  const winChance = 40 + luck;
+  const randomNumber = Math.random() * 100;
+
+  if (randomNumber <= winChance) {
+    const prize = Math.floor(Math.random() * ticket.max) + 1;
+    money += prize;
+    setLog(`${ticket.name}: ${translations[language].won} ${prize}€.`);
+  } else {
+    setLog(`${ticket.name}: ${translations[language].lost}`);
+  }
+
+  updateDisplay();
+}
+
+function renderTickets() {
+  const list = document.getElementById("ticketList");
+  list.innerHTML = "";
+
+  tickets.forEach((ticket, index) => {
+    const div = document.createElement("div");
+    div.className = "ticket";
+
+    div.innerHTML = `
+      <h3>${ticket.name}</h3>
+      <p>${translations[language].price}: ${ticket.price}€</p>
+      <p>${translations[language].maxPrize}: ${ticket.max}€</p>
+      <button class="yellow" onclick="buyTicket(${index})">
+        ${translations[language].buy}
+      </button>
+    `;
+
+    list.appendChild(div);
+  });
+}
+
+function changeLanguage() {
+  language = language === "en" ? "fr" : "en";
+  applyLanguage();
+}
+
+function applyLanguage() {
+  const t = translations[language];
+
+  document.documentElement.lang = language;
+
+  document.getElementById("moneyText").textContent = t.money;
+  document.getElementById("luckText").textContent = t.luck;
+  document.getElementById("cleanTab").textContent = t.cleanTab;
+  document.getElementById("shopTab").textContent = t.shopTab;
+  document.getElementById("ticketsTab").textContent = t.ticketsTab;
+  document.getElementById("cleanTitle").textContent = t.cleanTitle;
+  document.getElementById("cleanDesc").textContent = t.cleanDesc;
+  document.getElementById("cleanButton").textContent = t.cleanButton;
+  document.getElementById("shopTitle").textContent = t.shopTitle;
+  document.getElementById("shopDesc").textContent = t.shopDesc;
+  document.getElementById("luckButton").textContent = t.luckButton;
+  document.getElementById("ticketsTitle").textContent = t.ticketsTitle;
+  document.getElementById("logTitle").textContent = t.logTitle;
+  document.getElementById("languageButton").textContent = language === "en" ? "FR" : "EN";
+
+  renderTickets();
+}
+
+applyLanguage();
+updateDisplay();
+</script>
+
+</body>
+</html>
